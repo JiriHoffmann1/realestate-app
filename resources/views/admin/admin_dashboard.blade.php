@@ -92,6 +92,8 @@ License: For each use you must have a valid license purchased only from above li
 
 <!-- Custom js for this page -->
 <script src="{{ asset('backend/assets/js/code/code.js') }}"></script>
+<script src="{{ asset('backend/assets/js/code/validate.min.js') }}"></script>
+
 <!-- End custom js for this page -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
