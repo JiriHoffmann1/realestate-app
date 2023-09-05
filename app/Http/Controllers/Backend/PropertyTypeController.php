@@ -12,16 +12,16 @@ use App\Models\Amenities;
 
 class PropertyTypeController extends Controller
 {
-    public function AllType(){
+    public function allType(){
         $types = PropertyType::latest()->get();
         return view('backend.type.all_type', compact('types'));
     }
 
-    public function AddType() {
+    public function addType() {
         return view('backend.type.add_type');
     }
 
-    public function StoreType(Request $request) {
+    public function storeType(Request $request) {
         $request->validate([
             'type_name' => 'required|unique:property_types|max:200',
             'type_icon' => 'required',
@@ -38,12 +38,12 @@ class PropertyTypeController extends Controller
         return redirect()->route('all.type')->with($notification);
     }
 
-    public function EditType($id){
+    public function editType($id){
         $types = PropertyType::findOrFail($id);
         return view('backend.type.edit_type',compact('types'));
     }
 
-    public function UpdateType(Request $request){
+    public function updateType(Request $request){
 
         $pid = $request->id;
 
@@ -59,7 +59,7 @@ class PropertyTypeController extends Controller
         );
         return redirect()->route('all.type')->with($notification);
     }
-    public function DeleteType($id){
+    public function deleteType($id){
         PropertyType::findOrFail($id)->delete();
 
         $notification = array(
@@ -70,17 +70,17 @@ class PropertyTypeController extends Controller
     }
 
     ///////////// amenities method
-    public function AllAmenity(){
+    public function allAmenity(){
         $amenities = Amenities::latest()->get();
         return view('backend.amenities.all_amenities', compact('amenities'));
     }
 
-    public function AddAmenity(){
+    public function addAmenity(){
         return view('backend.amenities.add_amenity');
     }
 
 
-    public function StoreAmenity(Request $request) {
+    public function storeAmenity(Request $request) {
 
         Amenities::insert([
             'amenities_name' =>$request->amenities_name,
@@ -92,13 +92,13 @@ class PropertyTypeController extends Controller
         );
         return redirect()->route('all.amenities')->with($notification);
     }
-    public function EditAmenity($id){
+    public function editAmenity($id){
         $amenities = Amenities::findOrFail($id);
         return view('backend.amenities.edit_amenity', compact('amenities'));
 
     }
 
-    public function UpdateAmenity(Request $request){
+    public function updateAmenity(Request $request){
 
         $ame_id = $request->id;
 
@@ -113,7 +113,7 @@ class PropertyTypeController extends Controller
         );
         return redirect()->route('all.amenities')->with($notification);
         }
-    public function DeleteAmenity($id){
+    public function deleteAmenity($id){
         Amenities::findOrFail($id)->delete();
         $notification = array(
             'message' => 'Amenity deleted Successfully',

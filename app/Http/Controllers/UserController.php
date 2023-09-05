@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function Index(){
+    public function index(){
         return view('frontend.index');
     }
 
-    public function UserProfile(){
+    public function userProfile(){
 
         $id = Auth::user()->id;
         $userData = User::find($id);
@@ -25,7 +25,7 @@ class UserController extends Controller
 
     }
 
-    public function UserProfileStore(Request $request) {
+    public function userProfileStore(Request $request) {
 
         $id = Auth::user()->id;
         $data = User::find($id);
@@ -52,7 +52,7 @@ class UserController extends Controller
         return back()->with($notification);
 
     }
-    public function UserLogout(Request $request){
+    public function userLogout(Request $request){
         $id = Auth::user()->id;
         $profileData = User::find($id);
         $name = $profileData->name;
@@ -73,12 +73,12 @@ class UserController extends Controller
 
     }
 
-    public function UserChangePassword(){
+    public function userChangePassword(){
 
         return view('frontend.dashboard.change_password');
 
     }
-    public function UserPasswordUpdate(Request $request) {
+    public function userPasswordUpdate(Request $request) {
         //Validation
         $request->validate([
             'old_password' => 'required',

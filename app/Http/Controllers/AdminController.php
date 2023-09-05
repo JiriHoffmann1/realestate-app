@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Hash;
 class AdminController extends Controller
 {
 
-    public function AdminDashboard(){
+    public function adminDashboard(){
 
         return view('admin.index');
     }
 
 
-    public function AdminLogout(Request $request)
+    public function adminLogout(Request $request)
     {
         $id = Auth::user()->id;
         $profileData = User::find($id);
@@ -35,12 +35,12 @@ class AdminController extends Controller
         return redirect('/admin/login')->with($notification);
     }
 
-    public function AdminLogin() {
+    public function adminLogin() {
 
         return view('admin.admin_login');
     }
 
-    public function AdminProfile() {
+    public function adminProfile() {
     $id = Auth::user()->id;
     $profileData = User::find($id);
 
@@ -49,7 +49,7 @@ class AdminController extends Controller
 
     }
 
-    public function AdminProfileStore(Request $request) {
+    public function adminProfileStore(Request $request) {
 
         $id = Auth::user()->id;
         $data = User::find($id);
@@ -77,7 +77,7 @@ class AdminController extends Controller
 
     }
 
-    public function AdminChangePassword() {
+    public function adminChangePassword() {
         $id = Auth::user()->id;
         $profileData = User::find($id);
 
@@ -85,7 +85,7 @@ class AdminController extends Controller
         return view('admin.admin_change_password', compact('profileData'));
     }
 
-    public function AdminUpdatePassword(Request $request) {
+    public function adminUpdatePassword(Request $request) {
         //Validation
         $request->validate([
            'old_password' => 'required',
