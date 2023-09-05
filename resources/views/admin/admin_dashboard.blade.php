@@ -11,7 +11,10 @@ License: For each use you must have a valid license purchased only from above li
 <html lang="en">
 <head>
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" href="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css') }}">
+    <!-- End plugin css for this page -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -45,6 +48,8 @@ License: For each use you must have a valid license purchased only from above li
     <!-- End layout styles -->
 
     <link rel="shortcut icon" href="{{ asset('backend/assets/images/favicon.png') }}" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 </head>
 <body>
 <div class="main-wrapper">
@@ -82,13 +87,27 @@ License: For each use you must have a valid license purchased only from above li
 <script src="{{ asset('backend/assets/vendors/feather-icons/feather.min.js') }}"></script>
 <script src="{{ asset('backend/assets/js/template.js') }}"></script>
 <!-- endinject -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{ asset('backend/assets/js/dashboard-dark.js') }}"></script>
 
 <!-- Custom js for this page -->
-<script src="{{ asset('backend/assets/js/dashboard-dark.js') }}"></script>
+<script src="{{ asset('backend/assets/js/code/code.js') }}"></script>
 <!-- End custom js for this page -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<!-- Plugin js for this page -->
+<script src="{{ asset('backend/assets/vendors/datatables.net/jquery.dataTables.js') }}"></script>
+<script src="{{ asset('backend/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.js') }}"></script>
+
+<!-- Custom js for this page -->
+<script src="{{ asset('backend/assets/js/data-table.js') }}"></script>
+<!-- End custom js for this page -->
+<!-- End plugin js for this page -->
+
+
 
 <script>
+
     @if(Session::has('message'))
     let type = "{{ Session::get('alert-type','info') }}"
     switch(type){
@@ -110,6 +129,5 @@ License: For each use you must have a valid license purchased only from above li
     }
     @endif
 </script>
-
 </body>
 </html>

@@ -19,13 +19,20 @@ class AdminController extends Controller
 
     public function AdminLogout(Request $request)
     {
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        $name = $profileData->name;
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
+        $notification = array(
+            'message' => $name.' logged out Successfully',
+            'alert-type' =>'success');
 
-        return redirect('/admin/login');
+        return redirect('/admin/login')->with($notification);
     }
 
     public function AdminLogin() {

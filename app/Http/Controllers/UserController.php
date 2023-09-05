@@ -17,6 +17,9 @@ class UserController extends Controller
 
         $id = Auth::user()->id;
         $userData = User::find($id);
+
+
+
         return view('frontend.dashboard.edit_profile',compact('userData'));
 
 
@@ -50,11 +53,54 @@ class UserController extends Controller
 
     }
     public function UserLogout(Request $request){
+        $id = Auth::user()->id;
+        $profileData = User::find($id);
+        $name = $profileData->name;
+
         Auth::guard('web')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/login');
+
+        $notification = array(
+            'message' => $name.' logged out Successfully',
+            'alert-type' =>'success'
+        );
+
+
+        return redirect('/login')->with($notification);
+
+
+
     }
 
+    public function UserChangePassword(){
+
+        return view('frontend.dashboard.change_password');
+
+    }
+    public function UserPasswordUpdate(Request $request) {
+        //Validation
+        $request->validate([
+            'old_password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+        if(!Hash::check($request->old_password, auth::user()->password)) {
+            $notification = array(
+                'message' => 'Old Password does not match',
+                'alert-type' =>'error'
+            );
+
+            return back()->with($notification);
+        }
+        User::whereId(auth()->user()->id)->update([
+            'password' => Hash::make($request->new_password),
+        ]);
+        $notification = array(
+            'message' => 'Password Updated Successfully',
+            'alert-type' =>'success'
+        );
+        return back()->with($notification);
+    }
 
 }

@@ -73,12 +73,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
-                                        <input type="password" name="password" id="password" required="">
+                                        <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" required="">
+                                        @error('old_password')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
 
                                     <div class="form-group">
                                         <label  for="password_confirmation">Confirm Password</label>
-                                        <input type="password" name="password_confirmation" id="password_confirmation" required="">
+                                        <input type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation" id="password_confirmation" required="">
+                                        @error('password_confirmation')
+                                        <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                     <div class="form-group message-btn">
                                         <button type="submit" class="theme-btn btn-one">Register</button>
