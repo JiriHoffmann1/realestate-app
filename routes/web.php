@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
+use App\Http\Controllers\Backend\PropertyController;
 
 
 /*
@@ -76,6 +77,11 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
         Route::get('/edit/amenity/{id}', 'editAmenity')->name('edit.amenity');
         Route::post('/update/amenity', 'updateAmenity')->name('update.amenity');
         Route::get('/delete/amenity/{id}', 'deleteAmenity')->name('delete.amenity');
+    });
+    Route::controller(PropertyController::class)->group(function () {
+        Route::get('/all/properties', 'allProperties')->name('all.properties');
+        Route::get('/add/property', 'addProperty')->name('add.property');
+
     });
 
 
