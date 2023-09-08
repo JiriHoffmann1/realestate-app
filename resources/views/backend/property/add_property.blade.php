@@ -14,7 +14,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h6 class="card-title">Add Property</h6>
-                            <form method="post" action="" id="myForm" enctype="multipart/form-data" >
+                            <form method="post" action="{{ route('store.property') }}" id="myForm" enctype="multipart/form-data" >
                                 @csrf
 
                                 <div class="row">
@@ -143,7 +143,7 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Video</label>
-                                            <input type="file" class="form-control" name="property_video">
+                                            <input type="text" class="form-control" name="property_video">
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
