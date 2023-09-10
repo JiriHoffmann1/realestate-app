@@ -13,16 +13,18 @@
                 <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <h6 class="card-title">Add Property</h6>
-                            <form method="post" action="{{ route('store.property') }}" id="myForm" enctype="multipart/form-data" >
+                            <h6 class="card-title">Edit Property</h6>
+                            <form method="post" action="{{ route('update.property') }}" id="myForm" enctype="multipart/form-data" >
                                 @csrf
+
+                                <input type="hidden" name="id" value="{{ $property->id }}">
 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-label">Property Name</label>
                                             <input type="text" name="property_name" class="form-control"
-                                                   placeholder="Enter property name">
+                                                   placeholder="Enter property name" value="{{ $property->property_name }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
@@ -31,8 +33,8 @@
                                             <select class="form-select" name="property_status"
                                                     id="exampleFormControlSelect1">
                                                 <option selected="" disabled="">Select status</option>
-                                                <option value="rent">Rent</option>
-                                                <option value="purchase">Purchase</option>
+                                                <option value="rent" {{ $property->property_status =='rent' ? 'selected' : '' }} >Rent</option>
+                                                <option value="purchase" {{ $property->property_status =='purchase' ? 'selected' : '' }} >Purchase</option>
                                             </select>
                                         </div>
                                     </div><!-- Col -->
@@ -42,39 +44,14 @@
                                     <div class="col-sm-6">
                                         <div class="form-group mb-3">
                                             <label class="form-group form-label">Lowest Price</label>
-                                            <input type="text" name="lowest_price" class="form-control">
+                                            <input type="text" name="lowest_price" class="form-control" value="{{ $property->lowest_price }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-group form-label">Maximum Price</label>
                                             <input type="text" class="form-select" name="max_price"
-                                                   id="exampleFormControlSelect1">
-
-                                        </div>
-                                    </div><!-- Col -->
-                                </div><!-- Row -->
-
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group mb-3">
-                                            <label class=" form-label">Main Thumbnail</label>
-                                            <input type="file" name="property_thumbnail" class="form-control"
-                                                   onchange="mainThumUrl(this)">
-
-                                            <img src="" id="mainThumb">
-
-                                        </div>
-                                    </div><!-- Col -->
-                                    <div class="col-sm-6">
-                                        <div class="form-group mb-3">
-                                            <label class="form-label">Multiple Images</label>
-                                            <input type="file" name="multi_img[]" id="multiImg" multiple=""
-                                                   class="form-control">
-
-                                            <div class="row" id="preview_img">
-
-                                            </div>
+                                                   id="exampleFormControlSelect1" value="{{ $property->max_price }}" >
 
                                         </div>
                                     </div><!-- Col -->
@@ -84,25 +61,25 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Bedrooms</label>
-                                            <input type="text" class="form-control" name="bedrooms">
+                                            <input type="text" class="form-control" name="bedrooms" value="{{ $property->bedrooms }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Bathrooms</label>
-                                            <input type="text" class="form-control" name="bathrooms">
+                                            <input type="text" class="form-control" name="bathrooms" value="{{ $property->bathrooms }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Garage</label>
-                                            <input type="text" class="form-control" name="garage">
+                                            <input type="text" class="form-control" name="garage" value="{{ $property->garage }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Garage size</label>
-                                            <input type="text" class="form-control" name="garage_size">
+                                            <input type="text" class="form-control" name="garage_size" value="{{ $property->garage_size }}" >
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -111,25 +88,25 @@
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Address</label>
-                                            <input type="text" class="form-control" name="address">
+                                            <input type="text" class="form-control" name="address" value="{{ $property->address }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">City</label>
-                                            <input type="text" class="form-control" name="city">
+                                            <input type="text" class="form-control" name="city" value="{{ $property->city }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">State</label>
-                                            <input type="text" class="form-control" name="state">
+                                            <input type="text" class="form-control" name="state" value="{{ $property->state }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-3">
                                         <div class="mb-3">
                                             <label class="form-label">Postal code</label>
-                                            <input type="text" class="form-control" name="postal_code">
+                                            <input type="text" class="form-control" name="postal_code" value="{{ $property->postal_code }}" >
                                         </div>
                                     </div><!-- Col -->
                                 </div><!-- Row -->
@@ -137,19 +114,19 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Size</label>
-                                            <input type="text" class="form-control" name="property_size">
+                                            <input type="text" class="form-control" name="property_size" value="{{ $property->property_size }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Property Video</label>
-                                            <input type="text" class="form-control" name="property_video">
+                                            <input type="text" class="form-control" name="property_video" value="{{ $property->property_video }}" >
                                         </div>
                                     </div><!-- Col -->
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label class="form-label">Neighborhood</label>
-                                            <input type="text" class="form-control" name="neighborhood">
+                                            <input type="text" class="form-control" name="neighborhood" value="{{ $property->neighborhood }}" >
                                         </div>
                                     </div><!-- Row -->
                                 </div>
@@ -157,7 +134,7 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Latitude</label>
-                                            <input type="text" name="latitude" class="form-control">
+                                            <input type="text" name="latitude" class="form-control" value="{{ $property->latitude }}" >
                                             <a href="https://www.latlong.net/convert-address-to-lat-long.html"
                                                target="_blank"> Address to latitude converter </a>
 
@@ -166,7 +143,7 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label class="form-label">Longitude</label>
-                                            <input type="text" name="longitude" class="form-control">
+                                            <input type="text" name="longitude" class="form-control" value="{{ $property->longitude }}" >
                                             <a href="https://www.latlong.net/convert-address-to-lat-long.html"
                                                target="_blank"> Address to longitude converter </a>
 
@@ -180,7 +157,7 @@
                                             <select class="form-select" name="ptype_id" id="property_type">
                                                 <option selected="" disabled="">Select Type</option>
                                                 @foreach($propertytype as $ptype)
-                                                    <option value="{{ $ptype->id }}"> {{ $ptype->type_name }} </option>
+                                                    <option value="{{ $ptype->id }}" {{ $ptype->id == $property->ptype_id ? 'selected' : '' }} > {{ $ptype->type_name }} </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -193,7 +170,7 @@
                                                         name="amenities_id[]" multiple="multiple" data-width="100%">
                                                     @foreach($amenities as $amenity)
                                                         <option
-                                                            value="{{ $amenity->id }}"> {{ $amenity->amenities_name }} </option>
+                                                            value="{{ $amenity->id }}" {{ (in_array($amenity->id,$property_amenities)) ? 'selected' : '' }} > {{ $amenity->amenities_name }} </option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -205,7 +182,7 @@
                                             <select class="form-select" name="agent_id" id="agent_id">
                                                 <option selected="" disabled="">Select Agent</option>
                                                 @foreach($activeAgent as $agent)
-                                                    <option value="{{ $agent->id }}"> {{ $agent->name }} </option>
+                                                    <option value="{{ $agent->id }}" {{ $agent->id == $property->agent_id ? 'selected' : '' }} > {{ $agent->name }} </option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -215,66 +192,37 @@
                                     <div class="mb-3">
                                         <label class="form-label">Short Description</label>
                                         <textarea class="form-control" id="short_description" name="short_description"
-                                                  rows="3"></textarea>
+                                                  rows="3"> {{ $property->short_description }} </textarea>
                                     </div>
                                 </div><!-- Col -->
                                 <div class="col-sm-12">
                                     <div class="mb-3">
                                         <label class="form-label">Long Description</label>
                                         <textarea class="form-control" name="long_description" id="tinymceExample"
-                                                  rows="10"></textarea>
+                                                  rows="10"> {!! $property->long_description !!} </textarea>
                                     </div>
                                 </div><!-- Col -->
                                 <hr>
                                 <div class="mb-3">
                                     <div class="form-check form-check-inline">
                                         <input type="checkbox" name="featured" value="1" class="form-check-input"
-                                               id="checkInline1">
-                                        <label class="form-check-label" for="checkInline1">
+                                               id="checkInline1" {{ $property->featured == '1' ? 'checked' : '' }} >
+                                        <label class="form-check-label" for="checkInline1"  >
                                             Featured Property
                                         </label>
                                     </div>
                                     <div class="form-check form-check-inline">
                                         <input type="checkbox" name="hot" value="1" class="form-check-input"
-                                               id="checkInline2">
+                                               id="checkInline2" {{ $property->hot == '1' ? 'checked' : '' }} >
                                         <label class="form-check-label" for="checkInline2">
                                             Hot Property
                                         </label>
                                     </div>
                                 </div>
 
-                               <!--- facility  --->
+                                <!--- facility  --->
 
-                                <div class="row add_item">
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="facility_name" class="form-label">Facilities </label>
-                                            <select name="facility_name[]" id="facility_name" class="form-control">
-                                                <option value="">Select Facility</option>
-                                                <option value="Hospital">Hospital</option>
-                                                <option value="SuperMarket">Super Market</option>
-                                                <option value="School">School</option>
-                                                <option value="Entertainment">Entertainment</option>
-                                                <option value="Pharmacy">Pharmacy</option>
-                                                <option value="Airport">Airport</option>
-                                                <option value="Railways">Railways</option>
-                                                <option value="Bus Stop">Bus Stop</option>
-                                                <option value="Beach">Beach</option>
-                                                <option value="Mall">Mall</option>
-                                                <option value="Bank">Bank</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="mb-3">
-                                            <label for="distance" class="form-label"> Distance </label>
-                                            <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
-                                        </div>
-                                    </div>
-                                    <div class="form-group col-md-4" style="padding-top: 30px;">
-                                        <a class="btn btn-success addeventmore"><i class="fa fa-plus-circle"></i> Add More..</a>
-                                    </div>
-                                </div> <!---end row-->
+
 
                                 <button type="submit" class="btn btn-primary">Save changes</button>
 
@@ -287,72 +235,46 @@
         </div>
     </div>
 
+    <!-- Thumbnail image update -->
+    <div class="page-content" style="margin-top: -35px" >
 
-    <!--========== Start of add multiple class with ajax ==============-->
-    <div style="visibility: hidden">
-        <div class="whole_extra_item_add" id="whole_extra_item_add">
-            <div class="whole_extra_item_delete" id="whole_extra_item_delete">
-                <div class="container mt-2">
-                    <div class="row">
+        <div class="row profile-body">
+            <div class="col-md-12 col-xl-12 middle-wrapper">
+                <div class="row">
+                    <div class="card">
+                        <div class="card-body">
+                            <h6 class="card-title">Edit Main Thumbnail Image</h6>
+                            <form method="post" action="{{ route('update.property') }}" id="myForm" enctype="multipart/form-data" >
+                                @csrf
 
-                        <div class="form-group col-md-4">
-                            <label for="facility_name">Facilities</label>
-                            <select name="facility_name[]" id="facility_name" class="form-control">
-                                <option value="">Select Facility</option>
-                                <option value="Hospital">Hospital</option>
-                                <option value="SuperMarket">Super Market</option>
-                                <option value="School">School</option>
-                                <option value="Entertainment">Entertainment</option>
-                                <option value="Pharmacy">Pharmacy</option>
-                                <option value="Airport">Airport</option>
-                                <option value="Railways">Railways</option>
-                                <option value="Bus Stop">Bus Stop</option>
-                                <option value="Beach">Beach</option>
-                                <option value="Mall">Mall</option>
-                                <option value="Bank">Bank</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="distance">Distance</label>
-                            <input type="text" name="distance[]" id="distance" class="form-control" placeholder="Distance (Km)">
-                        </div>
-                        <div class="form-group col-md-4" style="padding-top: 20px">
-                            <span class="btn btn-success btn-sm addeventmore"><i class="fa fa-plus-circle">Add</i></span>
-                            <span class="btn btn-danger btn-sm removeeventmore"><i class="fa fa-minus-circle">Remove</i></span>
+                                <input type="hidden" name="id" value="{{ $property->id }}" >
+                                <input type="hidden" name="old_img" value="{{ $property->property_thumbnail }}" >
+
+                                    <div class="row  mb-3">
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label">Main Thumbnail</label>
+                                            <input type="file" name="property_thumbnail" class="form-control"
+                                                   onchange="mainThumUrl(this)">
+                                            <img src="" id="mainThumb">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label class=" form-label"></label>
+                                            <img src="{{ asset($property->property_thumbnail) }}" style=" width:100px; height:100px; " >
+                                        </div>
+                                    </div><!-- Col -->
+
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+
+
+
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-
-    <!----For Section-------->
-    <script type="text/javascript">
-        $(document).ready(function(){
-            var counter = 0;
-            $(document).on("click",".addeventmore",function(){
-                var whole_extra_item_add = $("#whole_extra_item_add").html();
-                $(this).closest(".add_item").append(whole_extra_item_add);
-                counter++;
-            });
-            $(document).on("click",".removeeventmore",function(event){
-                $(this).closest("#whole_extra_item_delete").remove();
-                counter -= 1
-            });
-        });
-    </script>
-    <!--========== End of add multiple class with ajax ==============-->
-
-
-
-
-
-
-
-
-
+    <!-- Thumbnail image update end -->
 
 
 

@@ -73,7 +73,7 @@ class PropertyController extends Controller
             'agent_id' => $request->agent_id,
             'status' => 1,
             'property_thumbnail' => $save_url,
-            'created_At' => Carbon::now(),
+            'created_at' => Carbon::now(),
         ]);
 
         // Multiple Image Upload from form to another table
@@ -107,6 +107,65 @@ class PropertyController extends Controller
         }
         $notification = array(
             'message' => 'Property inserted Successfully',
+            'alert-type' =>'success'
+        );
+
+        return redirect()->route('all.properties')->with($notification);
+    }
+
+    public function editProperty($id){
+
+        $property = Property::findOrFail($id);
+
+        $type = $property->amenities_id;
+        $property_amenities = explode(',',$type);
+
+        $propertytype = PropertyType::latest()->get();
+        $amenities = Amenities::latest()->get();
+        $activeAgent = User::where('status', 'active')->where('role', 'agent')->latest()->get();
+
+
+        return view('backend.property.edit_property', compact('property', 'amenities', 'propertytype','activeAgent','property_amenities'));
+
+    }
+
+    public function updateProperty(Request $request){
+        $property_id = $request->id;
+        $amen = $request->amenities_id;
+        $amenities = implode(',',$amen);
+
+
+        Property::findOrFail($property_id)->update([
+            'ptype_id' => $request->ptype_id,
+            'amenities_id' => $amenities,
+            'property_name' => $request->property_name,
+            'property_slug' => strtolower(str_replace(' ','-', $request->property_name)),
+            'property_status' => $request->property_status,
+            'lowest_price' => $request->lowest_price,
+            'max_price' => $request->max_price,
+            'short_description' => $request->short_description,
+            'long_Description' => $request->long_description,
+            'bedrooms' => $request->bedrooms,
+            'bathrooms' => $request->bathrooms,
+            'garage' => $request->garage,
+            'garage_size' => $request->garage_size,
+            'property_size' => $request->property_size,
+            'property_video' => $request->property_video,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'postal_code' => $request->postal_code,
+            'neighborhood' => $request->neighborhood,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
+            'featured' => $request->featured,
+            'hot' => $request->hot,
+            'agent_id' => $request->agent_id,
+            'updated_at' => Carbon::now(),
+        ]);
+
+        $notification = array(
+            'message' => 'Property updated Successfully',
             'alert-type' =>'success'
         );
 
