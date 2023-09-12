@@ -8,7 +8,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Backend\PropertyTypeController;
 use App\Http\Controllers\Backend\PropertyController;
-
+use App\Http\Middleware\RedirectIfAuthenticated;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,7 +56,7 @@ Route::middleware(['auth', 'role:agent'])->group(function() {
     Route::get('/agent/dashboard', [AgentController::class, 'agentDashboard'])->name('agent.dashboard');
 });
 
-Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login');
+Route::get('/admin/login', [AdminController::class, 'adminLogin'])->name('admin.login')->middleware(RedirectIfAuthenticated::class);
 
 
 Route::middleware(['auth', 'role:admin'])->group(function() {
@@ -91,6 +91,8 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
         Route::post('/update/property/facilities', 'updatePropertyFacilities')->name('update.property.facilities');
         Route::get('/delete/property/{id}', 'deleteProperty')->name('delete.property');
         Route::get('/details/property/{id}', 'detailsProperty')->name('details.property');
+        Route::post('/deactivate/property', 'deactivateProperty')->name('deactivate.property');
+        Route::post('/activate/property', 'activateProperty')->name('activate.property');
 
 
     });

@@ -10,7 +10,6 @@
                 <div class="card">
                     <div class="card-body">
                         <h6 class="card-title">Property Details</h6>
-                        <p class="text-muted mb-3">Add class <code>.table</code></p>
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <tbody>
@@ -65,7 +64,7 @@
                                 <tr>
                                     <td>Main Image</td>
                                     <td>
-                                        <img src="{{ asset($property->property_thumbnail) }}" style="width:100px; height:70px" >
+                                        <img src="{{ asset($property->property_thumbnail) }}" style="width:100px; height:70px" alt="thumbnail" >
                                     </td>
                                 </tr>
                                 <tr>
@@ -88,8 +87,7 @@
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
                     <div class="card-body">
-                        <h6 class="card-title">Hoverable Table</h6>
-                        <p class="text-muted mb-3">Add class <code>.table-hover</code></p>
+                        <h6 class="card-title">Property Details</h6>
                         <div class="table-responsive">
                             <table class="table table-striped">
 
@@ -149,12 +147,23 @@
                                     <td>Short Description</td>
                                     <td><code>{{ $property->short_description }}</code></td>
                                 </tr>
-                                <tr>
-                                    <td>Long Description</td>
-                                    <td><code>{!! $property->long_description !!}</code></td>
-                                </tr>
                                 </tbody>
                             </table>
+<br><br>
+                            @if($property->status == 1)
+                                <form method="post" action="{{ route('deactivate.property') }}"  >
+                                @csrf
+                                    <input type="hidden" name="id" value="{{ $property->id }}">
+                                    <button type="submit" class="btn btn-primary">Deactivate</button>
+                                </form>
+                            @else
+                                <form method="post" action="{{ route('activate.property') }}"  >
+                                    @csrf
+                                    <input type="hidden" name="id" value="{{ $property->id }}">
+                                    <button type="submit" class="btn btn-primary">Activate</button>
+                                </form>
+                            @endif
+
                         </div>
                     </div>
                 </div>
