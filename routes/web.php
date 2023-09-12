@@ -90,6 +90,8 @@ Route::middleware(['auth', 'role:admin'])->group(function() {
         Route::post('/store/new/multiImg', 'storeNewMultiImg')->name('store.new.multiImg');
         Route::post('/update/property/facilities', 'updatePropertyFacilities')->name('update.property.facilities');
         Route::get('/delete/property/{id}', 'deleteProperty')->name('delete.property');
+        Route::get('/details/property/{id}', 'detailsProperty')->name('details.property');
+
 
     });
 
